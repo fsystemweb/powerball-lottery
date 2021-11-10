@@ -92,4 +92,8 @@ function validateBallsValue(balls) {
   return flagError;
 }
 
+function validateRepeatValues(balls) {
+  let ballsCopy = balls;
+}
+
 module.exports = { validateRequest };

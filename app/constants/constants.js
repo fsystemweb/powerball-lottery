@@ -3,6 +3,7 @@ const TIME_OUT = "6s";
 const MIN_VALUE_BALL = 1;
 const MAX_WHITE_VALUE_BALL = 69;
 const MAX_RED_VALUE_BALL = 26;
+const BLANK_HOUR = "T00:00:00.000";
 
 module.exports = {
   API_POWERBALL_LOTTERY,
@@ -10,4 +11,5 @@ module.exports = {
   MIN_VALUE_BALL,
   MAX_WHITE_VALUE_BALL,
   MAX_RED_VALUE_BALL,
+  BLANK_HOUR,
 };

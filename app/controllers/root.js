@@ -1,4 +1,4 @@
-const getLotteryNumbers = require("../services/powerball-lottery.service");
+const { getPrize } = require("../services/powerball-lottery.service");
 const { validateRequest } = require("../services/validate-request.service");
 const { serviceUnavailable, badRequest } = require("./errors");
 
@@ -12,9 +12,9 @@ async function checkPrize(req, res) {
       .status(errorResponse.status)
       .json({ message: errorResponse.message });
   } else {
-    await getLotteryNumbers()
-      .then((lotteryNumbers) => {
-        response = lotteryNumbers;
+    await getPrize(req.body)
+      .then((prize) => {
+        response = prize;
       })
       .catch((err) => {
         return serviceUnavailable();
