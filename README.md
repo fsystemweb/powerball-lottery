@@ -29,6 +29,10 @@ This will install dependencies.
 
 `npm start`
 
+Start dev environment
+
+`npm run dev`
+
 ## Testing
 
 `npm test`
