@@ -3,6 +3,7 @@ const { getWinNumbers } = require("./read-external-file.service");
 
 async function getPrize(requestParemeter) {
   let winNumbersArray = [];
+  let prize;
   await getWinNumbers()
     .then((winNumbers) => {
       winNumbersArray = winNumbers;
@@ -14,11 +15,12 @@ async function getPrize(requestParemeter) {
   const winNumber = getWinNumber(winNumbersArray, requestParemeter.date);
   if (!winNumber) {
     prize = 0;
-    return;
+    return prize;
   }
   const winningNumbers = convertWinNumbersToArray(winNumber.winning_numbers);
 
-  return searchPrize(winningNumbers, requestParemeter.balls);
+  prize = searchPrize(winningNumbers, requestParemeter.balls);
+  return prize;
 }
 
 function getWinNumber(array, date) {

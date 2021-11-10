@@ -1,29 +1,46 @@
 const { getPrize } = require("../../../app/services/powerball-lottery.service");
-const {
-  getWinNumbers,
-} = require("../../../app/services/read-external-file.service");
 
-const MOCK_WIN_NUMBERS = [
-  {
-    draw_date: "2021-10-04T00:00:00.000",
-    winning_numbers: "12 22 54 66 69 15",
-    multiplier: "2",
-  },
-  {
-    draw_date: "2021-10-02T00:00:00.000",
-    winning_numbers: "28 38 42 47 52 01",
-    multiplier: "2",
-  },
-];
-
-test("return Grand Prize", () => {
+test("test Grand prize", async () => {
   const request = {
     date: "2021-10-04",
     balls: [12, 22, 54, 66, 69, 15],
   };
-  const addMock = jest.spyOn(getWinNumbers, "getWinNumbers");
+  const result = await getPrize(request);
+  expect(result).toStrictEqual("Grand Prize");
+});
 
-  addMock.mockImplementation(() => MOCK_WIN_NUMBERS);
+test("test prize 1000000", async () => {
+  const request = {
+    date: "2021-10-04",
+    balls: [12, 22, 54, 66, 69, 16],
+  };
+  const result = await getPrize(request);
+  expect(result).toStrictEqual("50000");
+});
 
-  expect(getPrize(request)).toStrictEqual("Grand Prize");
+test("test prize 50000", async () => {
+  const request = {
+    date: "2021-10-04",
+    balls: [12, 23, 54, 66, 69, 15],
+  };
+  const result = await getPrize(request);
+  expect(result).toStrictEqual("50000");
+});
+
+test("test prize 4", async () => {
+  const request = {
+    date: "2021-10-04",
+    balls: [11, 23, 55, 61, 67, 15],
+  };
+  const result = await getPrize(request);
+  expect(result).toStrictEqual("4");
+});
+
+test("test prize 0", async () => {
+  const request = {
+    date: "2021-10-03",
+    balls: [12, 23, 54, 66, 69, 15],
+  };
+  const result = await getPrize(request);
+  expect(result).toStrictEqual(0);
 });
