@@ -1,6 +1,6 @@
 # Powerball Lottery
 
-# Docummentation
+# Documentation
 
 Check our Swagger:
 
