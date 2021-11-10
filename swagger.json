@@ -55,6 +55,14 @@
                 "schema": {}
               }
             }
+          },
+          "503": {
+            "description": "Service Unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
           }
         }
       }
@@ -68,7 +76,8 @@
           "date": {
             "type": "string",
             "description": "Date of the ticket \n",
-            "required": true
+            "required": true,
+            "example": "2021-03-31"
           },
           "balls": {
             "required": true,
