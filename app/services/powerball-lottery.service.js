@@ -1,7 +1,5 @@
-const request = require("request");
-const { API_POWERBALL_LOTTERY, BLANK_HOUR } = require("../constants/constants");
-
-const options = { json: true };
+const { BLANK_HOUR } = require("../constants/constants");
+const { getWinNumbers } = require("./read-external-file.service");
 
 async function getPrize(requestParemeter) {
   let winNumbersArray = [];
@@ -21,26 +19,6 @@ async function getPrize(requestParemeter) {
   const winningNumbers = convertWinNumbersToArray(winNumber.winning_numbers);
 
   return searchPrize(winningNumbers, requestParemeter.balls);
-}
-
-function getWinNumbers() {
-  return new Promise((resolve, reject) => {
-    let req_get = request(
-      API_POWERBALL_LOTTERY,
-      options,
-      (error, res, body) => {
-        if (error) {
-          reject(error);
-        }
-
-        if (!error && res.statusCode == 200) {
-          resolve(body);
-        }
-      }
-    );
-
-    req_get.end();
-  });
 }
 
 function getWinNumber(array, date) {
