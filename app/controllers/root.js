@@ -12,13 +12,7 @@ async function checkPrize(req, res) {
       .status(errorResponse.status)
       .json({ message: errorResponse.message });
   } else {
-    await getPrize(req.body)
-      .then((prize) => {
-        response = prize;
-      })
-      .catch((err) => {
-        return serviceUnavailable();
-      });
+    response = await getPrize(req.body);
   }
 
   res.json({ response });

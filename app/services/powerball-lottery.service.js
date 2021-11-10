@@ -3,7 +3,27 @@ const { API_POWERBALL_LOTTERY, BLANK_HOUR } = require("../constants/constants");
 
 const options = { json: true };
 
-function getPrize(requestParemeter) {
+async function getPrize(requestParemeter) {
+  let winNumbersArray = [];
+  await getWinNumbers()
+    .then((winNumbers) => {
+      winNumbersArray = winNumbers;
+    })
+    .catch((err) => {
+      return serviceUnavailable();
+    });
+
+  const winNumber = getWinNumber(winNumbersArray, requestParemeter.date);
+  if (!winNumber) {
+    prize = 0;
+    return;
+  }
+  const winningNumbers = convertWinNumbersToArray(winNumber.winning_numbers);
+
+  return searchPrize(winningNumbers, requestParemeter.balls);
+}
+
+function getWinNumbers() {
   return new Promise((resolve, reject) => {
     let req_get = request(
       API_POWERBALL_LOTTERY,
@@ -14,15 +34,7 @@ function getPrize(requestParemeter) {
         }
 
         if (!error && res.statusCode == 200) {
-          const winNumber = getWinNumber(body, requestParemeter.date);
-          if (!winNumber) {
-            resolve(0);
-            return;
-          }
-          const winningNumbers = convertWinNumbersToArray(
-            winNumber.winning_numbers
-          );
-          resolve(searchPrize(winningNumbers, requestParemeter.balls));
+          resolve(body);
         }
       }
     );

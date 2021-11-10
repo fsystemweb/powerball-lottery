@@ -67,3 +67,15 @@ test("Invalid red ball", () => {
     message: "Invalid Red Ball",
   });
 });
+
+test("test duplicate values", () => {
+  const request = {
+    date: "2021-05-11",
+    balls: [12, 12, 65, 23, 13, 21],
+  };
+
+  expect(validateRequest(request)).toStrictEqual({
+    flag: false,
+    message: "Duplicate values",
+  });
+});

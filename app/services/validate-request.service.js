@@ -63,6 +63,11 @@ function validateBalls(request, returnObject) {
     return false;
   }
 
+  if (validateRepeatValues(request.balls)) {
+    returnObject.message = "Duplicate values";
+    return false;
+  }
+
   returnObject.message = "";
   returnObject.flag = true;
   return true;
@@ -93,7 +98,12 @@ function validateBallsValue(balls) {
 }
 
 function validateRepeatValues(balls) {
-  let ballsCopy = balls;
+  let copyBalls = Array.from(balls);
+
+  copyBalls.pop();
+  return copyBalls.some(function (v, i) {
+    return copyBalls.indexOf(v, i + 1) > -1;
+  });
 }
 
 module.exports = { validateRequest };
