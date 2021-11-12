@@ -1,6 +1,6 @@
 # Powerball Lottery
 
-# Docummentation
+# Documentation
 
 Check our Swagger:
 
@@ -28,6 +28,10 @@ From the checked-out application folder, run:
 This will install dependencies.
 
 `npm start`
+
+Start dev environment
+
+`npm run dev`
 
 ## Testing
 
