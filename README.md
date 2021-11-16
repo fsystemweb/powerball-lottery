@@ -1,5 +1,5 @@
 # Powerball Lottery
-
+Check your prize in Powerball Lottery
 # Documentation
 
 Check our Swagger:
